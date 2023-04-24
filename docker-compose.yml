@@ -1,0 +1,20 @@
+version: '3'
+services:
+  analysis:
+    image: continuumio/miniconda3
+    volumes:
+      - ./notebooks:/analysis/notebooks
+      - ./requirements.txt:/requirements.txt
+    ports:
+      - "8888:8888"
+    environment:
+      - "PYTHONPATH=/analysis"
+    command: >
+      /bin/bash -c "
+      conda update -n base conda -y &&
+      conda create -n analysis python=3.8.11 -y &&
+      source activate analysis &&
+      conda install -y jupyter &&
+      conda install --yes --file /requirements.txt &&
+      conda clean --all --force-pkgs-dirs --yes &&
+      jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root"

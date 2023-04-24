@@ -1,0 +1,6 @@
+numpy
+pandas
+pandasql
+matplotlib
+seaborn
+missingno
